@@ -9,7 +9,7 @@
 const CONFIG = {
 
   // ---- Your business name (shows at the top of the app) ----
-  businessName: "Bassface Event Media",
+  businessName: "Bassface Nation",
 
   // ---- Where "Book now" requests get emailed ----
   bookingEmail: "office@bassfacenation.com",
