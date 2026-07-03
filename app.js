@@ -11,6 +11,9 @@ const CONFIG = {
   // ---- Your business name (shows at the top of the app) ----
   businessName: "Bassface Event Media",
 
+  // ---- Where "Book now" requests get emailed ----
+  bookingEmail: "office@bassfacenation.com",
+
   // ---- The currency symbol used everywhere ----
   currency: "$",
 
@@ -281,6 +284,40 @@ function pad(label, amount) {
 }
 
 
+/* ---------- Book now: open the client's email app with the quote filled in ---------- */
+
+function bookingEmailUrl() {
+  const pkg = CONFIG.packages.find((p) => p.id === state.packageId);
+  const { lines, subtotal, discount, total, deposit } = calculate();
+
+  const body = [];
+  body.push("Hi " + CONFIG.businessName + ",");
+  body.push("");
+  body.push("I'd like to book the following:");
+  body.push("");
+  lines.forEach((l) => body.push("- " + l.label + ": " + money(l.amount)));
+  if (state.discountPercent > 0) {
+    body.push("- Subtotal: " + money(subtotal));
+    body.push("- Discount (" + state.discountPercent + "%): -" + money(discount));
+  }
+  body.push("- TOTAL: " + money(total));
+  body.push("- Deposit to book (" + CONFIG.depositPercent + "%): " + money(deposit));
+  body.push("");
+  body.push("Event date: ");
+  body.push("Venue / location: ");
+  body.push("Set time (if known): ");
+  body.push("Name: ");
+  body.push("Phone: ");
+  body.push("");
+  body.push("Anything else we should know:");
+
+  const subject = "Booking request — " + pkg.name + " (" + money(total) + ")";
+  return "mailto:" + CONFIG.bookingEmail +
+    "?subject=" + encodeURIComponent(subject) +
+    "&body=" + encodeURIComponent(body.join("\n"));
+}
+
+
 /* ---------- Wire up the buttons ---------- */
 
 function init() {
@@ -303,6 +340,10 @@ function init() {
   });
 
   document.getElementById("print-btn").addEventListener("click", () => window.print());
+
+  document.getElementById("book-btn").addEventListener("click", () => {
+    window.location.href = bookingEmailUrl();
+  });
 
   render();
 }
