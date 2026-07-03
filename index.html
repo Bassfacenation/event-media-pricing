@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Media — Pricing</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <h1 id="business-name">Event Media</h1>
+      <p class="tagline">Build a quote — pick a package, add extras, get a price.</p>
+    </header>
+
+    <div class="layout">
+      <!-- LEFT: the choices -->
+      <main class="choices">
+        <section>
+          <h2>1. Choose a package</h2>
+          <div id="packages" class="packages"></div>
+        </section>
+
+        <section>
+          <h2>2. Add extras</h2>
+          <div id="addons" class="addons"></div>
+        </section>
+      </main>
+
+      <!-- RIGHT: the live quote -->
+      <aside class="quote">
+        <div class="quote-inner">
+          <h2>Your quote</h2>
+          <div id="breakdown" class="breakdown"></div>
+
+          <div class="totals">
+            <div class="line"><span>Subtotal</span><span id="subtotal">$0</span></div>
+            <div class="line" id="discount-row" style="display:none">
+              <span class="discount-label">Discount</span>
+              <span class="discount-amount">−$0</span>
+            </div>
+            <div class="line grand"><span>Total</span><span id="total">$0</span></div>
+          </div>
+
+          <p id="deposit" class="deposit"></p>
+
+          <label class="discount-field">
+            Internal discount %
+            <input id="discount-input" type="number" min="0" max="100" step="1" value="0">
+          </label>
+
+          <div class="actions">
+            <button id="copy-btn" type="button" class="btn primary">Copy quote</button>
+            <button id="print-btn" type="button" class="btn">Print / PDF</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
